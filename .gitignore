@@ -5,4 +5,6 @@ doc/*.bbl
 doc/*.log
 doc/*.synctex
 doc/img/
+out/
+*.tar.gz
 
