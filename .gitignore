@@ -1,0 +1,8 @@
+build/
+data/
+doc/*.aux
+doc/*.bbl
+doc/*.log
+doc/*.synctex
+doc/img/
+

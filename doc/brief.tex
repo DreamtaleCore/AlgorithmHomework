@@ -1,0 +1,67 @@
+%% Paper define
+\documentclass[cs4size, punct, nospace, fancyhdr, fntef]{ctexart}
+%\documentclass{article}
+%% Dependences
+\usepackage[top=0.9cm,bottom=2.5cm,left=3cm,right=2cm,includehead,includefoot]{geometry, graphicx}
+%\usepackage{geometry, graphicx}
+\usepackage{color}% color package
+\usepackage{times}% Times New Roman font package
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,chains}
+%% Start of document
+\begin{document}
+
+  \section{Project/Algorithm Name}
+  
+  \subsection{Introduction}
+    Some introduction of this project/algorithm here.
+  \subsection{Pseudo code}
+    \begin{algorithm}
+    \caption{Euclid's algorithm}\label{euclid}
+    \begin{algorithmic}[1]
+    \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+      \State $r\gets a\bmod b$
+      \If{condition ok}
+        \State then do it
+      \EndIf
+      \While{$r\not=0$}\Comment{We have the answer if r is 0}
+        \State $a\gets b$
+        \State $b\gets r$
+        \State $r\gets a\bmod b$
+      \EndWhile\label{euclidendwhile}
+      \State \textbf{return} $b$\Comment{The g.c.d. is b}
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+    
+  \subsection{Flowchart}
+    \begin{table}[htb]
+      \centering
+      \begin{tabular}{c|r|l}
+        \hline
+        % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+        data1 & data2 & data3 \\
+        \hline
+        sex & 10 & 3 \\
+        hell & 9 & 6 \\
+        \hline
+      \end{tabular}
+      \caption{algorithm's table}\label{tabledemo1}
+    \end{table}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=10cm]{img/flowchart.jpg}
+      \caption[flowchart]{algorithm's flowchart}\label{fig:flowchart}
+    \end{figure}
+    \begin{figure}[H]
+      \centering
+      % Use tikz to draw the flowchart
+      \caption{flowchart2}\label{flowchart1}
+    \end{figure}
+    
+\end{document}
