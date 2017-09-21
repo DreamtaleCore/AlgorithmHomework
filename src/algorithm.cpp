@@ -8,13 +8,20 @@
 #include<cmath>
 #include<vector>
 
+using namespace std;
+
 namespace test
 {
 	// Test function and modules here
-
+	void printDemo()
+	{
+		cout << "This is just test program." << endl;
+	}
 }
 
 int main()
 {
 	// Main algorithm structure here
+	test::printDemo();
+	getchar();
 }
