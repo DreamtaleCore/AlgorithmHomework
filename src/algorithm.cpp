@@ -8,6 +8,8 @@
 #include<cmath>
 #include<vector>
 
+using namespace std;
+
 namespace test
 {
 	// Test function and modules here
