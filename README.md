@@ -1,10 +1,14 @@
-# [Project/Algorithm Name]
+# [Conquer Algorithm]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
 |  Author    |      Liu Yunfei   |
 |Student ID  |      BY1706126    |
 |E-mail      |lyunfei@buaa.edu.cn|
+
+## Detials
+
+Mainly contain of ``divide and conquer`` and ``decrease and conquer`` and ``change and conquer``
 
 ## File Structure
 
