@@ -12,12 +12,12 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{tikz}
-\usetikzlibrary{arrows,shapes,chains}
+\usetikzlibrary{arrows,shapes,chains,shapes.multipart}
 %% Start of document
 \begin{document}
 
   \section{Project/Algorithm Name}
-  
+
   \subsection{Introduction}
     Some introduction of this project/algorithm here.
   \subsection{Pseudo code}
@@ -38,7 +38,7 @@
     \EndProcedure
     \end{algorithmic}
     \end{algorithm}
-    
+
   \subsection{Flowchart}
     \begin{table}[htb]
       \centering
@@ -61,7 +61,109 @@
     \begin{figure}[H]
       \centering
       % Use tikz to draw the flowchart
+      \scriptsize
+      \tikzstyle{format}=[rectangle,draw,thin,fill=white]
+      \tikzstyle{test}=[diamond,aspect=2,draw,thin]
+      \tikzstyle{point}=[coordinate,on grid,]
+      \begin{tikzpicture}[node distance=8mm, auto, >=latex', thin, start chain=going below, every join/.style={norm},]
+        \node[format](n0){A};
+        \node[format,below of=n0] (n1){B};
+        \node[format,below of=n1] (n2){C};
+        \node[format,below of=n2] (n3){D};
+        \node[point,right of=n3] (p0){};
+        \node[point,left of=n3] (p1){};
+        \node[format,below of=n3] (n4){E};
+        \node[format,below of=n4] (n5){F};
+        \node[format,right of=n5] (n6){G};
+        \node[test,below of=n5] (n7){H};
+        \node[point,right of=n7] (p2){};
+        \node[format,below of=n7] (n8){I};
+
+        \draw[->] (n0.south) -- (n1);
+        \draw[->] (n1.south) -- (n2);
+        \draw[->] (n2.south) -- (n3);
+        \draw[->] (n3.south) -- (n4);
+        \draw[->] (n4.south) -- (n5);
+        \draw[->] (n5.south) -- (n7);
+        \draw[->] (n7.south) to node {Yes} (n8);
+        \draw[->] (n7.east) to node {No} (p2) |- (n6.south);
+        \draw[->] (n6.north) -- (p0) |- (n3.east);
+      \end{tikzpicture}
       \caption{flowchart2}\label{flowchart1}
     \end{figure}
-    
+    \begin{figure}[H]
+      \centering
+      \tikzstyle{decision} = [diamond, draw, fill=blue!20,
+        text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+      \tikzstyle{block} = [rectangle, draw, fill=blue!20,
+        text width=5em, text centered, rounded corners, minimum height=4em]
+      \tikzstyle{line} = [draw, -latex']
+      \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+        minimum height=2em]
+
+      \begin{tikzpicture}[node distance = 2cm, auto]
+        % Place nodes
+        \node [block] (init) {initialize model};
+        \node [cloud, left of=init] (expert) {expert};
+        \node [cloud, right of=init] (system) {system};
+        \node [block, below of=init] (identify) {identify candidate models};
+        \node [block, below of=identify] (evaluate) {evaluate candidate models};
+        \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
+        \node [decision, below of=evaluate] (decide) {is best candidate     better?};
+        \node [block, below of=decide, node distance=3cm] (stop) {stop};
+        % Draw edges
+        \path [line] (init) -- (identify);
+        \path [line] (identify) -- (evaluate);
+        \path [line] (evaluate) -- (decide);
+        \path [line] (decide) -| node [near start] {yes} (update);
+        \path [line] (update) |- (identify);
+        \path [line] (decide) -- node {no}(stop);
+        \path [line,dashed] (expert) -- (init);
+        \path [line,dashed] (system) -- (init);
+        \path [line,dashed] (system) |- (evaluate);
+      \end{tikzpicture}
+      \caption{flowchart3}\label{flowchart3}
+    \end{figure}
+    \begin{figure}[H]
+      \centering
+      \tikzset{
+        decision/.style = {diamond, draw, fill=blue!20,
+          text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt},
+        block/.style = {rectangle, draw, fill=blue!20,
+          text width=5em, text centered, rounded corners, minimum height=4em},
+        line/.style = {draw, -latex'},
+        cloud/.style = {draw, ellipse,fill=red!20, node distance=3cm,
+          minimum height=2em},
+        subroutine/.style = {draw,rectangle split, rectangle split horizontal,
+          rectangle split parts=3,minimum height=1cm,
+          rectangle split part fill={red!50, green!50, blue!20, yellow!50}},
+        connector/.style = {draw,circle,node distance=3cm,fill=yellow!20},
+        data/.style = {draw, trapezium,node distance=3cm,fill=olive!20}
+        }
+      \begin{tikzpicture}[node distance = 2cm, auto]
+        % Place nodes
+        \node [block] (init) {initialize model};
+        \node [data, left of=init] (expert) {expert};
+        \node [connector, right of=init] (system) {system};
+        \node [block, below of=init] (identify) {identify candidate models};
+        \node [block, below of=identify] (evaluate) {evaluate candidate models};
+        \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
+        \node [decision, below of=evaluate] (decide) {is best candidate     better?};
+        \node [block, below of=decide, node distance=3cm] (test) {test};
+        \node [subroutine, below of=test, node distance=3cm] (sub) {part1\nodepart{two}part2\nodepart{three}part3};
+        % Draw edges
+        \path [line] (init) -- (identify);
+        \path [line] (identify) -- (evaluate);
+        \path [line] (evaluate) -- (decide);
+        \path [line] (decide) -| node [near start] {yes} (update);
+        \path [line] (update) |- (identify);
+        \path [line] (decide) -- node {no}(test);
+        \path [line,dashed] (test) -- (sub);
+        \path [line,dashed] (expert) -- (init);
+        \path [line,dashed] (system) -- (init);
+        \path [line,dashed] (system) |- (evaluate);
+      \end{tikzpicture}
+      \caption{flowchart4}\label{flowchart4}
+    \end{figure}
+
 \end{document}
