@@ -27,20 +27,21 @@
     \end{itemize}
   \subsection{Pseudo code}
     \begin{algorithm}
-    \caption{Euclid's algorithm}\label{euclid}
-    \begin{algorithmic}[1]
-    \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-      \State $r\gets a\bmod b$
-      \If{condition ok}
-        \State then do it
+    \caption{Divide-and-Conquer algorithm}\label{dnc}
+    \begin{algorithmic}[1] %show line numbers
+    \Require The total problem $p$
+    \Ensure The result of problem $T$
+    \Function{Divide-and-Conquer}{$p$}\Comment{Input problem as p}
+      \If{$|P|\leq n_0$}\Comment{If p is small enough, deal with it}
+        \State \textbf{return}(Adhoc(p))
       \EndIf
-      \While{$r\not=0$}\Comment{We have the answer if r is 0}
-        \State $a\gets b$
-        \State $b\gets r$
-        \State $r\gets a\bmod b$
-      \EndWhile\label{euclidendwhile}
-      \State \textbf{return} $b$\Comment{The g.c.d. is b}
-    \EndProcedure
+      \State Divide p into sub-problems:${p_1, p2, ..., p_k}$
+      \For{$i\gets 1$ to $k$}
+        \State $y_i\gets$ Divide-and-Conquer($p_i$)\Comment{Deal with $p_i$ recursively}
+      \EndFor
+      \State $T\gets Merge(y_1, y_2, ..., y_k)$\Comment{Merge sub-problems}
+      \State \textbf{return} $T$
+    \EndFunction
     \end{algorithmic}
     \end{algorithm}
 
