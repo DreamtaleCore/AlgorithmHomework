@@ -3,6 +3,7 @@ data/
 doc/*.aux
 doc/*.bbl
 doc/*.log
+doc/*.blg
 doc/*.synctex
 doc/img/
 out/
