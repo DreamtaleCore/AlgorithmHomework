@@ -32,14 +32,14 @@
     \Require The total problem $p$
     \Ensure The result of problem $T$
     \Function{Divide-and-Conquer}{$p$}\Comment{Input problem as p}
-      \If{$|P|\leq n_0$}\Comment{If p is small enough, deal with it}
-        \State \textbf{return}(Adhoc(p))
+      \If{$|p|\leq n_0$}\Comment{If p is small enough, deal with it}
+        \State \textbf{return}(Adhoc($p$))
       \EndIf
       \State Divide p into sub-problems:${p_1, p2, ..., p_k}$
       \For{$i\gets 1$ to $k$}
         \State $y_i\gets$ Divide-and-Conquer($p_i$)\Comment{Deal with $p_i$ recursively}
       \EndFor
-      \State $T\gets Merge(y_1, y_2, ..., y_k)$\Comment{Merge sub-problems}
+      \State $T\gets$ Merge($y_1, y_2, ..., y_k$)\Comment{Merge sub-problems}
       \State \textbf{return} $T$
     \EndFunction
     \end{algorithmic}
