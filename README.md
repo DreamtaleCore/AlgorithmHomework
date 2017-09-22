@@ -1,4 +1,4 @@
-# [Project/Algorithm Name]
+# [Dynamic Programming]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
