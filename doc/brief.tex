@@ -35,7 +35,7 @@
       \If{$|p|\leq n_0$}\Comment{If p is small enough, deal with it}
         \State \textbf{return}(Adhoc($p$))
       \EndIf
-      \State Divide p into sub-problems:${p_1, p2, ..., p_k}$
+      \State Divide $p$ into sub-problems: ${p_1, p2, ..., p_k}$
       \For{$i\gets 1$ to $k$}
         \State $y_i\gets$ Divide-and-Conquer($p_i$)\Comment{Deal with $p_i$ recursively}
       \EndFor
