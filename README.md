@@ -1,4 +1,4 @@
-# [Project/Algorithm Name]
+# [Sorting, Searching and Matching Algorithms]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
