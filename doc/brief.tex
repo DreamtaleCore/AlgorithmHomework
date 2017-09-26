@@ -24,7 +24,7 @@
     \begin{algorithm}
     \caption{Euclid's algorithm}\label{euclid}
     \begin{algorithmic}[1]
-    \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+    \Function{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
       \State $r\gets a\bmod b$
       \If{condition ok}
         \State then do it
@@ -35,7 +35,7 @@
         \State $r\gets a\bmod b$
       \EndWhile\label{euclidendwhile}
       \State \textbf{return} $b$\Comment{The g.c.d. is b}
-    \EndProcedure
+    \EndFunction
     \end{algorithmic}
     \end{algorithm}
 
