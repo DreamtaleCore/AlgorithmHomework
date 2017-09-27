@@ -27,150 +27,50 @@
   \subsection{Prim Algorithm}
     \subsubsection{Pseudo code}
       \begin{algorithm}
-      \caption{Euclid's algorithm}\label{euclid}
+      \caption{Prim algorithm}\label{prim}
       \begin{algorithmic}[1]
-      \Function{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-        \State $r\gets a\bmod b$
-        \If{condition ok}
-          \State then do it
-        \EndIf
-        \While{$r\not=0$}\Comment{We have the answer if r is 0}
-          \State $a\gets b$
-          \State $b\gets r$
-          \State $r\gets a\bmod b$
-        \EndWhile\label{euclidendwhile}
-        \State \textbf{return} $b$\Comment{The g.c.d. is b}
+      \Function{Prim}{$V,E$}\Comment{$V$ denotes vertices, $E$ denotes edges}
+        \Require A weighted, connected map which vertices set as $V$ and edges set as $E$.
+        \Ensure Using sets $V_{new}$ and $E_{new}$ which describe the minimal spanning tree.
+        \State $V_{new}\gets\left\{x\right\}$\Comment{$x\in V$, $x$ as the start vertex}
+        \State $E_{new}\gets \left\{\right\}$\Comment{set $E_{new}$ as empty set}
+        \While{$V_{new}\neq V$}
+          \State Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$ \Comment{If there were multi answers, choose one randomly}
+          \State Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$
+        \EndWhile
       \EndFunction
       \end{algorithmic}
       \end{algorithm}
-
     \subsubsection{Flowchart}
-      \begin{table}[htb]
-        \centering
-        \begin{tabular}{c|r|l}
-          \hline
-          % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-          data1 & data2 & data3 \\
-          \hline
-          sex & 10 & 3 \\
-          hell & 9 & 6 \\
-          \hline
-        \end{tabular}
-        \caption{algorithm's table}\label{tabledemo1}
-      \end{table}
       \begin{figure}[H]
         \centering
-        \includegraphics[width=10cm]{img/flowchart.jpg}
-        \caption[flowchart]{algorithm's flowchart}\label{fig:flowchart}
-      \end{figure}
-      \begin{figure}[H]
-        \centering
-        % Use tikz to draw the flowchart
-        \scriptsize
-        \tikzstyle{format}=[rectangle,draw,thin,fill=white]
-        \tikzstyle{test}=[diamond,aspect=2,draw,thin]
-        \tikzstyle{point}=[coordinate,on grid,]
-        \begin{tikzpicture}[node distance=8mm, auto, >=latex', thin, start chain=going below, every join/.style={norm},]
-          \node[format](n0){A};
-          \node[format,below of=n0] (n1){B};
-          \node[format,below of=n1] (n2){C};
-          \node[format,below of=n2] (n3){D};
-          \node[point,right of=n3] (p0){};
-          \node[point,left of=n3] (p1){};
-          \node[format,below of=n3] (n4){E};
-          \node[format,below of=n4] (n5){F};
-          \node[format,right of=n5] (n6){G};
-          \node[test,below of=n5] (n7){H};
-          \node[point,right of=n7] (p2){};
-          \node[format,below of=n7] (n8){I};
-
-          \draw[->] (n0.south) -- (n1);
-          \draw[->] (n1.south) -- (n2);
-          \draw[->] (n2.south) -- (n3);
-          \draw[->] (n3.south) -- (n4);
-          \draw[->] (n4.south) -- (n5);
-          \draw[->] (n5.south) -- (n7);
-          \draw[->] (n7.south) to node {Yes} (n8);
-          \draw[->] (n7.east) to node {No} (p2) |- (n6.south);
-          \draw[->] (n6.north) -- (p0) |- (n3.east);
-        \end{tikzpicture}
-        \caption{flowchart2}\label{flowchart1}
-      \end{figure}
-      \begin{figure}[H]
-        \centering
-        \tikzstyle{decision} = [diamond, draw, fill=blue!20,
-          text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+        \tikzstyle{decision} = [diamond, draw, fill=yellow!20,
+          text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
         \tikzstyle{block} = [rectangle, draw, fill=blue!20,
-          text width=5em, text centered, rounded corners, minimum height=4em]
+          text width=13em, text centered, rounded corners, minimum height=4em]
         \tikzstyle{line} = [draw, -latex']
         \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
           minimum height=2em]
 
         \begin{tikzpicture}[node distance = 2cm, auto]
           % Place nodes
-          \node [block] (init) {initialize model};
-          \node [cloud, left of=init] (expert) {expert};
-          \node [cloud, right of=init] (system) {system};
-          \node [block, below of=init] (identify) {identify candidate models};
-          \node [block, below of=identify] (evaluate) {evaluate candidate models};
-          \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
-          \node [decision, below of=evaluate] (decide) {is best candidate     better?};
-          \node [block, below of=decide, node distance=3cm] (stop) {stop};
+          \node [cloud] (input) { $V$ and $E$};
+          \node [block, below of=input] (init) { $V_{new}\gets\left\{x\right\}$ $E_{new}\gets \left\{\right\}$ };
+          \node [decision, below of=init, node distance=3cm] (decide) { $V_{new}\neq V$ ?};
+          \node [block, below of=decide, node distance=3cm] (getvalue) {Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$};
+          \node [block, below of=getvalue, node distance=3cm] (setvalue) {Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$};
+          \node [cloud, below of=setvalue, node distance=2.5cm] (stop) {stop};
           % Draw edges
-          \path [line] (init) -- (identify);
-          \path [line] (identify) -- (evaluate);
-          \path [line] (evaluate) -- (decide);
-          \path [line] (decide) -| node [near start] {yes} (update);
-          \path [line] (update) |- (identify);
-          \path [line] (decide) -- node {no}(stop);
-          \path [line,dashed] (expert) -- (init);
-          \path [line,dashed] (system) -- (init);
-          \path [line,dashed] (system) |- (evaluate);
+          \path [line] (input) -- (init);
+          \path [line] (init) -- (decide);
+          \path [line] (decide) -- node [near start] {yes} (getvalue);
+          \path [line] (getvalue) -- (setvalue);
+          \path [line] (setvalue.west) -| ([xshift=-2cm,]decide.west) |- (decide.north);
+          \path [line] (decide.east) -| node [near start] {no} ([xshift=3cm, yshift=1cm]stop.east) -| (stop.north);
         \end{tikzpicture}
-        \caption{flowchart3}\label{flowchart3}
+        \caption{Prim algorithm flowchart}\label{flowchart_prim}
       \end{figure}
-      \begin{figure}[H]
-        \centering
-        \tikzset{
-          decision/.style = {diamond, draw, fill=blue!20,
-            text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt},
-          block/.style = {rectangle, draw, fill=blue!20,
-            text width=5em, text centered, rounded corners, minimum height=4em},
-          line/.style = {draw, -latex'},
-          cloud/.style = {draw, ellipse,fill=red!20, node distance=3cm,
-            minimum height=2em},
-          subroutine/.style = {draw,rectangle split, rectangle split horizontal,
-            rectangle split parts=3,minimum height=1cm,
-            rectangle split part fill={red!50, green!50, blue!20, yellow!50}},
-          connector/.style = {draw,circle,node distance=3cm,fill=yellow!20},
-          data/.style = {draw, trapezium,node distance=3cm,fill=olive!20}
-          }
-        \begin{tikzpicture}[node distance = 2cm, auto]
-          % Place nodes
-          \node [block] (init) {initialize model};
-          \node [data, left of=init] (expert) {expert};
-          \node [connector, right of=init] (system) {system};
-          \node [block, below of=init] (identify) {identify candidate models};
-          \node [block, below of=identify] (evaluate) {evaluate candidate models};
-          \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
-          \node [decision, below of=evaluate] (decide) {is best candidate     better?};
-          \node [block, below of=decide, node distance=3cm] (test) {test};
-          \node [subroutine, below of=test, node distance=3cm] (sub) {part1\nodepart{two}part2\nodepart{three}part3};
-          % Draw edges
-          \path [line] (init) -- (identify);
-          \path [line] (identify) -- (evaluate);
-          \path [line] (evaluate) -- (decide);
-          \path [line] (decide) -| node [near start] {yes} (update);
-          \path [line] (update) |- (identify);
-          \path [line] (decide) -- node {no}(test);
-          \path [line,dashed] (test) -- (sub);
-          \path [line,dashed] (expert) -- (init);
-          \path [line,dashed] (system) -- (init);
-          \path [line,dashed] (system) |- (evaluate);
-        \end{tikzpicture}
-        \caption{flowchart4}\label{flowchart4}
-      \end{figure}
-    \subsection{Kruskal Algorithm}
+  \subsection{Kruskal Algorithm}
       \subsubsection{Pseudo Code}
         Code here
       \subsubsection{Flowchart}
