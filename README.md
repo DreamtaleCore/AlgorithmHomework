@@ -1,10 +1,16 @@
-# [Project/Algorithm Name]
+# [Minimal Spanning Tree Algorithm]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
 |  Author    |      Liu Yunfei   |
 |Student ID  |      BY1706126    |
 |E-mail      |lyunfei@buaa.edu.cn|
+
+## Contains
+
+This project mainly contains:
+1. Prim Algorithm
+2. Kruskal Algorithm
 
 ## File Structure
 
