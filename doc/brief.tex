@@ -24,58 +24,58 @@
       \item Prim Algorithm
       \item Kruskal Algorithm
     \end{itemize}
-  %\subsection{Prim Algorithm}
-%    \subsubsection{Pseudo code}
-%      \begin{algorithm}
-%      \caption{Prim algorithm}\label{prim}
-%      \begin{algorithmic}[1]
-%      \Function{Prim}{$V,E$}\Comment{$V$ denotes vertices, $E$ denotes edges}
-%        \Require A weighted, connected map which vertices set as $V$ and edges set as $E$.
-%        \Ensure Using sets $V_{new}$ and $E_{new}$ which describe the minimal spanning tree.
-%        \State $V_{new}\gets\left\{x\right\}$\Comment{$x\in V$, $x$ as the start vertex}
-%        \State $E_{new}\gets \left\{\right\}$\Comment{set $E_{new}$ as empty set}
-%        \While{$V_{new}\neq V$}
-%          \State Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$ \Comment{If there were multi answers, choose one randomly}
-%          \State Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$
-%        \EndWhile
-%      \EndFunction
-%      \end{algorithmic}
-%      \end{algorithm}
-%    \subsubsection{Flowchart}
-%      \begin{figure}[H]
-%        \centering
-%        \tikzstyle{decision} = [diamond, draw, fill=yellow!20,
-%          text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
-%        \tikzstyle{block} = [rectangle, draw, fill=blue!20,
-%          text width=13em, text centered, rounded corners, minimum height=4em]
-%        \tikzstyle{line} = [draw, -latex']
-%        \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-%          minimum height=2em]
-%
-%        \begin{tikzpicture}[node distance = 2cm, auto]
-%          % Place nodes
-%          \node [cloud] (input) { $V$ and $E$};
-%          \node [block, below of=input] (init) { $V_{new}\gets\left\{x\right\}$ $E_{new}\gets \left\{\right\}$ };
-%          \node [decision, below of=init, node distance=3cm] (decide) { $V_{new}\neq V$ ?};
-%          \node [block, below of=decide, node distance=3cm] (getvalue) {Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$};
-%          \node [block, below of=getvalue, node distance=3cm] (setvalue) {Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$};
-%          \node [cloud, below of=setvalue, node distance=2.5cm] (stop) {stop};
-%          % Draw edges
-%          \path [line] (input) -- (init);
-%          \path [line] (init) -- (decide);
-%          \path [line] (decide) -- node [near start] {yes} (getvalue);
-%          \path [line] (getvalue) -- (setvalue);
-%          \path [line] (setvalue.west) -| ([xshift=-2cm,]decide.west) |- (decide.north);
-%          \path [line] (decide.east) -| node [near start] {no} ([xshift=3cm, yshift=1cm]stop.east) -| (stop.north);
-%        \end{tikzpicture}
-%        \caption{Prim algorithm flowchart}\label{flowchart_prim}
-%      \end{figure}
-%    \subsubsection{Analysis}
-%      Let $v$ denotes the sum of vertices and $e$ denotes the sum of edges, then, this algorithm's time complexity is:
-%      \begin{itemize}
-%        \item Adjacent matrix: $O\left( v^{2}\right)$
-%        \item Adjacent table: $O\left( e \log _2v \right)$
-%      \end{itemize}
+  \subsection{Prim Algorithm}
+    \subsubsection{Pseudo code}
+      \begin{algorithm}
+      \caption{Prim algorithm}\label{prim}
+      \begin{algorithmic}[1]
+      \Function{Prim}{$V,E$}\Comment{$V$ denotes vertices, $E$ denotes edges}
+        \Require A weighted, connected map which vertices set as $V$ and edges set as $E$.
+        \Ensure Using sets $V_{new}$ and $E_{new}$ which describe the minimal spanning tree.
+        \State $V_{new}\gets\left\{x\right\}$\Comment{$x\in V$, $x$ as the start vertex}
+        \State $E_{new}\gets \left\{\right\}$\Comment{set $E_{new}$ as empty set}
+        \While{$V_{new}\neq V$}
+          \State Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$ \Comment{If there were multi answers, choose one randomly}
+          \State Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$
+        \EndWhile
+      \EndFunction
+      \end{algorithmic}
+      \end{algorithm}
+    \subsubsection{Flowchart}
+      \begin{figure}[H]
+        \centering
+        \tikzstyle{decision} = [diamond, draw, fill=yellow!20,
+          text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
+        \tikzstyle{block} = [rectangle, draw, fill=blue!20,
+          text width=13em, text centered, rounded corners, minimum height=4em]
+        \tikzstyle{line} = [draw, -latex']
+        \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+          minimum height=2em]
+
+        \begin{tikzpicture}[node distance = 2cm, auto]
+          % Place nodes
+          \node [cloud] (input) { $V$ and $E$};
+          \node [block, below of=input] (init) { $V_{new}\gets\left\{x\right\}$ $E_{new}\gets \left\{\right\}$ };
+          \node [decision, below of=init, node distance=3cm] (decide) { $V_{new}\neq V$ ?};
+          \node [block, below of=decide, node distance=3cm] (getvalue) {Find the minimal edge $\langle u, v\rangle$ from $E$ , s.t. $u\in V_{new}, v\notin V_{new}, v \in V$};
+          \node [block, below of=getvalue, node distance=3cm] (setvalue) {Push $v$ in $V_{new}$ and push $\langle u, v\rangle$ in $E_{new}$};
+          \node [cloud, below of=setvalue, node distance=2.5cm] (stop) {stop};
+          % Draw edges
+          \path [line] (input) -- (init);
+          \path [line] (init) -- (decide);
+          \path [line] (decide) -- node [near start] {yes} (getvalue);
+          \path [line] (getvalue) -- (setvalue);
+          \path [line] (setvalue.west) -| ([xshift=-2cm,]decide.west) |- (decide.north);
+          \path [line] (decide.east) -| node [near start] {no} ([xshift=3cm, yshift=1cm]stop.east) -| (stop.north);
+        \end{tikzpicture}
+        \caption{Prim algorithm flowchart}\label{flowchart_prim}
+      \end{figure}
+    \subsubsection{Analysis}
+      Let $v$ denotes the sum of vertices and $e$ denotes the sum of edges, then, this algorithm's time complexity is:
+      \begin{itemize}
+        \item Adjacent matrix: $O\left( v^{2}\right)$
+        \item Adjacent table: $O\left( e \log _2v \right)$
+      \end{itemize}
   \subsection{Kruskal Algorithm}
       \subsubsection{Pseudo Code}
       \begin{algorithm}
