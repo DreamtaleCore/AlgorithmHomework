@@ -9,6 +9,9 @@
 ## Detials
 
 Mainly contain of ``divide and conquer`` and ``decrease and conquer`` and ``change and conquer``
+### Samples
+1. Find the k minimal number in a list
+2. To be continued
 
 ## File Structure
 

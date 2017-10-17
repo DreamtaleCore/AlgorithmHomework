@@ -7,6 +7,7 @@
 #include<iostream>
 #include<cmath>
 #include<vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -29,6 +30,50 @@ namespace test
 		return rlt;
 	}
 
+	// Function name: Find the K'st Minimum Number in a List
+	// Realized by quick sort method 
+	// The complexity of this function is 
+	template<typename T>
+	inline void mySwap(T& a, T&b)
+	{
+		T c = a;
+		a = b;
+		b = c;
+	}
+	template<typename T>
+	T findTheKstMinNum(vector<T> a, int l, int r, int k)
+	{
+		if (l < r)
+		{
+			T item = a[l];
+			int i = l + 1, j = r;
+			while (true)
+			{
+				while (a[i] < item) i++;
+				while (a[j] > item) j--;
+				if (i > j)
+					break;
+				mySwap<T>(a[i++], a[j--]);
+			}
+			mySwap<T>(a[j], a[l]);
+			if (j < k)
+				findTheKstMinNum<T>(a, j + 1, r, k);
+			else if (j > k)
+				findTheKstMinNum<T>(a, l, j - 1, k);
+			else
+				return a[k];
+		}
+		return -3444444;
+	}
+	// Realized by k-min heap method 
+	// The complexity of this function is 
+	template<typename T>
+	T findTheKstMinNum(vector<T> a, int k)
+	{
+		T b = a[0];
+		return b;
+	}
+
 }
 
 int main()
@@ -37,5 +82,14 @@ int main()
 	int x = 5;
 	int n = 3;
 	cout << "Power(" << x << "," << n << ") = " << test::dncPower<int>(x, n) << endl;
+	// Find the k'st minimal number by the quick sort
+	vector<int> a = { 2, 5, 6, 8, 3, 0, 6, 2, 7, 8, 34, 23,-1 };
+	int rlt = test::findTheKstMinNum<int>(a, 0, a.size() - 1, 3);
+	sort(a.begin(), a.end(), [](int x, int y) {return x < y; });
+	for (auto elem : a)
+	{
+		cout << "  " << elem;
+	}
+	cout << "\nThe " << 3 << "'s result is " << rlt << endl;
 	getchar();
 }
