@@ -1,4 +1,4 @@
-# [Sorting, Searching and Matching Algorithms]
+# [Homework 1]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
