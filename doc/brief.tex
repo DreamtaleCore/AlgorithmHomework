@@ -1,5 +1,5 @@
 %% Paper define
-\documentclass[cs4size, punct, nospace, fancyhdr, fntef]{ctexart}
+\documentclass[cs4size, punct, nospace, fancyhdr, fntef, UTF8]{ctexart}
 %\documentclass{article}
 %% Dependences
 \usepackage[top=0.9cm,bottom=2.5cm,left=3cm,right=2cm,includehead,includefoot]{geometry, graphicx}
@@ -12,163 +12,251 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{tikz}
+\usepackage{amsmath}
+
+\usepackage{booktabs}
+
 \usetikzlibrary{arrows,shapes,chains,shapes.multipart}
 %% Start of document
+
+%% author and article title
+\author{刘云飞\\BY1706126}
+\title{Homework1}
+\date{}
+
+%% main content
 \begin{document}
+\maketitle
 
-  \section{Sorting, Searching and Matching Algorithms}
+  \section{第一题}
+  \subsection{题目描述}
+  已知下列递推公式：
+  \begin{equation}\label{equ:1_1}
+    C(n)=\left\{
+    \begin{array}{lcl}
+      1                                          &      & {若n=1}\\
+      {2C\left(\frac{n}{2} \right) + n - 1}      &      & {若n\ge 2}
+  \end{array} \right.
+  \end{equation}
 
-  \subsection{Introduction}
-    This project mainly contain with 
-    \begin{itemize}
-      \item Sorting algorithm
-      \item Searching algorithm
-      \item Matching algorithm
-    \end{itemize}
-  \subsection{Pseudo code}
-    \begin{algorithm}
-    \caption{Euclid's algorithm}\label{euclid}
-    \begin{algorithmic}[1]
-    \Function{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-      \State $r\gets a\bmod b$
-      \If{condition ok}
-        \State then do it
+  请由定理1导出C(n)的非递归表达式并指出其渐进复杂性。
+
+  {\heiti 定理1：}设$a$,$c$为非负整数，$b$,$d$,$x$为非负常数，并对于某个非负整数k, 令$n=c^k$, 则以下递推式：
+
+  \begin{equation}\label{equ:1_2}
+      f(n)=\left\{
+      \begin{array}{lcl}
+        d                                         &      & {若n=1}\\
+        {a*f\left(\frac{n}{c}\right) + b*n^x}     &      & {若n\ge 2}
+      \end{array} \right.
+  \end{equation}
+  的解是：
+
+  \begin{equation}\label{equ_1_3}
+    f(n)=\left\{
+      \begin{array}{lcl}
+        {b*n^x\log_c{n} + d*n^x}                    &      & {若a = c^x}\\
+        {\left( d + \frac{b*c^x}{a - c^x}\right) * n^{\log_c{a}} - \left( \frac{b*c^x}{a - c^x} \right) * n^x}     &      & {若a\ne c^x}
+      \end{array} \right.
+  \end{equation}
+
+  \subsection{解决方法}
+  根据公式\ref{equ:1_1}与定理1对比，令$F(n)=C(n)-1$则有：
+  \begin{equation}\label{equ_1_4}
+    F(n)=\left\{
+      \begin{array}{lcl}
+        {0}                             &      & {若n=1}\\
+        {2*C(\frac{n}{2}) + n - 2}      &      & {若n\geq 2}
+      \end{array} \right.
+  \end{equation}
+  整理有如下结果：
+  \begin{equation}\label{equ_1_5}
+    F(n)=\left\{
+      \begin{array}{lcl}
+        {0}                         &      & {若n=1}\\
+        {2*F(\frac{n}{2}) + n}      &      & {若n\geq 2}
+      \end{array} \right.
+  \end{equation}
+
+  根据定理1可以得到下面对照：
+  $d = 0,a = 2, c = 2, b = 1, x = 1, a = cx$
+
+  故$F(n)=n*\log_2(n)$，所以$C(n)=F(n) + 1=n*\log_2(n) + 1$
+  所以$C(n)$的渐进复杂度为$O(n*log_2(n))$。
+
+
+  \section{第二题}
+  \subsection{问题描述}
+  由于Prim算法和Kruskal 算法设计思路的不同，导致了其对不同问题实例的效率对比关系的不同。请简要论述：
+  \begin{itemize}
+    \item 如何将两种算法集成，以适应问题的不同实例输入；
+    \item 你如何评价这一集成的意义？
+  \end{itemize}
+  \subsection{解决方法}
+  \subsubsection{最小生成树}
+  在一给定的无向图$G = \left(V, E\right)$ 中，$\left(V, E\right)$ 代表连接顶点 $u$ 与顶点 $v$ 的边（即），而 $w\left(V, E\right)$ 代表此边的权重，若存在 $T$ 为 $E$ 的子集（即）且为无循环图，使得的 $w\left(T\right)$最小，则此 $T$ 为$G$ 的最小生成树。最小生成树其实是最小权重生成树的简称。
+  \subsubsection{两个算法时间效率分析}
+  {\heiti Prim算法分析： }使用邻接矩阵来保存图的话，时间复杂度是$O\left(V^2\right)$，使用二叉堆优化Prim算法的时间复杂度为$O((V + E)* \log(V)) = O(E \log(E))$
+  {\heiti Kruskal算法分析：}时间复杂度为$O(E*\log (E))$
+
+  通过数据对比两者结果如下图（图片来着网络）：
+  \begin{figure}[htbp]  % allow anywhere
+    \centering
+    \includegraphics[width=8cm]{img/compare1.jpg}
+    \includegraphics[width=8cm]{img/compare2.jpg}
+    \caption[compare]{三个算法时间复杂图比较}\label{fig:compare}
+  \end{figure}
+  不考虑中间的二叉堆优化Prim算法，仅仅比较Prim与Kruskal算法，有如下结论
+  \begin{itemize}
+    \item Prim在稠密图中比Kruskal优
+    \item Prim在稀疏图中比Kruskal劣
+  \end{itemize}
+  因此考虑判别稀疏图与稠密图的边界来分类使用两算法来优化最小生成树算法。
+  \subsubsection{边界计算与优化之后的伪代码}
+  \begin{equation}\label{equ:cmp_rlt}
+    v^2 = e*\log(e)
+  \end{equation}
+  其中$v, e$分别代表$V, E$的元素个数。  因此伪代码考虑如下：
+  \begin{algorithm}
+    \caption{Minimal Span Tree's algorithm}\label{alg:MinSpanTree}
+  \begin{algorithmic}[1]
+    \Function{MinSpanTree}{$V, E$}\Comment{优化最小生成树算法}
+      \Require 无向图$(V, E)$
+      \Ensure 最小生成树$T$
+      \If{$v^2 \le e*\log(e)$}
+        \State $T \gets$ Prim($V, E$)
+      \Else
+        \State $T \gets$ Kruskal($V, E$)
       \EndIf
-      \While{$r\not=0$}\Comment{We have the answer if r is 0}
-        \State $a\gets b$
-        \State $b\gets r$
-        \State $r\gets a\bmod b$
-      \EndWhile\label{euclidendwhile}
-      \State \textbf{return} $b$\Comment{The g.c.d. is b}
+    \EndFunction
+    \end{algorithmic}
+    \end{algorithm}
+  \subsubsection{对算法集成的评价}
+  通过将两个算法进行集成，虽然增加了代码量，但是针对不同稀疏程度的无向图可以保证其最小生成树的时间控制在比较优的结果，此时时间复杂度为：$\min (V^2, E * \log(E))$。总之，没有一个算法是万能的，可以兼顾所有，此方法也是采用具体情况具体分析的方法来解决问题。
+  \section{第三题}
+  \subsection{问题描述}
+  分析以下生成排列算法的正确性和时间效率：
+
+  \begin{algorithm}
+    \caption{Heap\ Permute's algorithm}\label{alg:HeapPermute}
+  \begin{algorithmic}[1]
+    \Function{HeapPermute}{$n$}\Comment{实现生成排列的Heap算法}
+      \Require 一个正整数$n$和一个全局数组$A\left[1 \dots n\right]$
+      \Ensure $A$中元素全排列
+      \If{n=1}
+        \State write $A$
+      \Else
+        \For{$i \gets 1$ to $n$}
+          \State HeapPermute(n-1)
+          \If{$n$ is\ odd}
+            \State swap $A[1]$ and $A[n-1]$
+          \Else
+            \State swap $A[i]$ and $A[n]$
+          \EndIf
+        \EndFor
+      \EndIf
     \EndFunction
     \end{algorithmic}
     \end{algorithm}
 
-  \subsection{Flowchart}
-    \begin{table}[htb]
-      \centering
-      \begin{tabular}{c|r|l}
-        \hline
-        % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-        data1 & data2 & data3 \\
-        \hline
-        sex & 10 & 3 \\
-        hell & 9 & 6 \\
-        \hline
-      \end{tabular}
-      \caption{algorithm's table}\label{tabledemo1}
-    \end{table}
-    \begin{figure}[H]
-      \centering
-      \includegraphics[width=10cm]{img/flowchart.jpg}
-      \caption[flowchart]{algorithm's flowchart}\label{fig:flowchart}
-    \end{figure}
-    \begin{figure}[H]
-      \centering
-      % Use tikz to draw the flowchart
-      \scriptsize
-      \tikzstyle{format}=[rectangle,draw,thin,fill=white]
-      \tikzstyle{test}=[diamond,aspect=2,draw,thin]
-      \tikzstyle{point}=[coordinate,on grid,]
-      \begin{tikzpicture}[node distance=8mm, auto, >=latex', thin, start chain=going below, every join/.style={norm},]
-        \node[format](n0){A};
-        \node[format,below of=n0] (n1){B};
-        \node[format,below of=n1] (n2){C};
-        \node[format,below of=n2] (n3){D};
-        \node[point,right of=n3] (p0){};
-        \node[point,left of=n3] (p1){};
-        \node[format,below of=n3] (n4){E};
-        \node[format,below of=n4] (n5){F};
-        \node[format,right of=n5] (n6){G};
-        \node[test,below of=n5] (n7){H};
-        \node[point,right of=n7] (p2){};
-        \node[format,below of=n7] (n8){I};
+  \subsection{解决方法}
+  采用先测试，然后总结归纳的方式来分析：
+  \begin{itemize}
+    \item $n=1$时，输出$A_{1}$
+    \item $n=2$时，输出$A_{1}$、$A_{2}$，$A[2,1]$
+    \item $n=3$时，for循环3次：
+    \begin{enumerate}
+      \item $i=1$时，HeapPermute(2)输出$A_{1}$、$A_{2}$、$A_{3}$，此时得到$A[2,1,3]$，交换1,3有$A[3,1,2]$
+      \item $i=2$时，HeapPermute(2)输出$A_{3}$、$A_{1}$、$A_{2}$，此时得到$A[1,3,2]$，交换1,3有$A[2,3,1]$
+      \item $i=3$时，HeapPermute(2)输出$A_{2}$、$A_{3}$、$A_{1}$，此时得到$A[3,2,1]$，交换1,3有$A[1,2,3]$
+    \end{enumerate}
+    \item $n=3$时，for循环4次：
+    \begin{enumerate}
+      \item $i=1$时，HeapPermute(3)输出$A_{1}$、$A_{2}$、$A_{3}$、$A_{4}$，$A[1,2,3]$顺序不变，交换1,4有$A[4,2,3,1]$
+      \item $i=2$时，HeapPermute(3)输出$A_{4}$、$A_{2}$、$A_{3}$、$A_{1}$，$A[4,2,3]$顺序不变，交换2,4有$A[4,1,3,2]$
+      \item $i=3$时，HeapPermute(3)输出$A_{4}$、$A_{1}$、$A_{3}$、$A_{2}$，$A[4,1,3]$顺序不变，交换3,4有$A[4,1,2,3]$
+      \item $i=4$时，HeapPermute(3)输出$A_{4}$、$A_{1}$、$A_{2}$、$A_{3}$，$A[4,1,2]$顺序不变，交换4,4有$A[4,1,2,3]$
+    \end{enumerate}
+    此时得到$A[4,1,2,3]$，即全部输出之后数组A循环右移一位。
+  \end{itemize}
+  由此发现HeapPermute(n)输出全排列后数组元素循环右移一位。 当n为奇数时，HeapPermute(n)输出全排列后数组元素顺序保持不变。只能通过归纳法证明，如下：
+  \begin{enumerate}
+    \item $i=1$时，显然成立。
+    \item $i=k$为偶数时，假设输出的是全排列，则$i=k-1$(奇数)时，$k-1$次循环中，每次前$k$个元素做全排列输出后循环右移一位，所以对换swap $A_1$and $A_n$可以保证每次将前k个元素中的一个换到$k-1$的位置，所以$k-1$次循环后输出的是$A[1,\dots ,k,1]$的全排列。
+    \item $i=k$为奇数时，假设输出的是全排列,则$i=k-1$(偶数)时，$k-1$次循环中，每次前$k$个元素做全排列输出后顺序保持不变，所以对换swap $A_i$and $A_n$可以保证每次将前$k$个元素中的一个换到$k-1$的位置，所以$k-1$次循环后输出的是$A[1,\dots ,k,1]$的全排列。
+  \end{enumerate}
+  以上。
 
-        \draw[->] (n0.south) -- (n1);
-        \draw[->] (n1.south) -- (n2);
-        \draw[->] (n2.south) -- (n3);
-        \draw[->] (n3.south) -- (n4);
-        \draw[->] (n4.south) -- (n5);
-        \draw[->] (n5.south) -- (n7);
-        \draw[->] (n7.south) to node {Yes} (n8);
-        \draw[->] (n7.east) to node {No} (p2) |- (n6.south);
-        \draw[->] (n6.north) -- (p0) |- (n3.east);
-      \end{tikzpicture}
-      \caption{flowchart2}\label{flowchart1}
-    \end{figure}
-    \begin{figure}[H]
-      \centering
-      \tikzstyle{decision} = [diamond, draw, fill=blue!20,
-        text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-      \tikzstyle{block} = [rectangle, draw, fill=blue!20,
-        text width=5em, text centered, rounded corners, minimum height=4em]
-      \tikzstyle{line} = [draw, -latex']
-      \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-        minimum height=2em]
+  由此可以得到时间复杂度的递推公式为：
+  \begin{equation}\label{equ:3_1}
+    T(n)=\left\{
+    \begin{array}{lcl}
+      1                     &      & {n=1}\\
+      {n*[T(n-1)+2]}        &      & {n\ge 2}
+  \end{array} \right.
+  \end{equation}
+  改成非递归式子结果为$T(n)=n!$，时间复杂度为$O(n^{n-1})$或者为$O(n!)$
 
-      \begin{tikzpicture}[node distance = 2cm, auto]
-        % Place nodes
-        \node [block] (init) {initialize model};
-        \node [cloud, left of=init] (expert) {expert};
-        \node [cloud, right of=init] (system) {system};
-        \node [block, below of=init] (identify) {identify candidate models};
-        \node [block, below of=identify] (evaluate) {evaluate candidate models};
-        \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
-        \node [decision, below of=evaluate] (decide) {is best candidate     better?};
-        \node [block, below of=decide, node distance=3cm] (stop) {stop};
-        % Draw edges
-        \path [line] (init) -- (identify);
-        \path [line] (identify) -- (evaluate);
-        \path [line] (evaluate) -- (decide);
-        \path [line] (decide) -| node [near start] {yes} (update);
-        \path [line] (update) |- (identify);
-        \path [line] (decide) -- node {no}(stop);
-        \path [line,dashed] (expert) -- (init);
-        \path [line,dashed] (system) -- (init);
-        \path [line,dashed] (system) |- (evaluate);
-      \end{tikzpicture}
-      \caption{flowchart3}\label{flowchart3}
-    \end{figure}
-    \begin{figure}[H]
-      \centering
-      \tikzset{
-        decision/.style = {diamond, draw, fill=blue!20,
-          text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt},
-        block/.style = {rectangle, draw, fill=blue!20,
-          text width=5em, text centered, rounded corners, minimum height=4em},
-        line/.style = {draw, -latex'},
-        cloud/.style = {draw, ellipse,fill=red!20, node distance=3cm,
-          minimum height=2em},
-        subroutine/.style = {draw,rectangle split, rectangle split horizontal,
-          rectangle split parts=3,minimum height=1cm,
-          rectangle split part fill={red!50, green!50, blue!20, yellow!50}},
-        connector/.style = {draw,circle,node distance=3cm,fill=yellow!20},
-        data/.style = {draw, trapezium,node distance=3cm,fill=olive!20}
-        }
-      \begin{tikzpicture}[node distance = 2cm, auto]
-        % Place nodes
-        \node [block] (init) {initialize model};
-        \node [data, left of=init] (expert) {expert};
-        \node [connector, right of=init] (system) {system};
-        \node [block, below of=init] (identify) {identify candidate models};
-        \node [block, below of=identify] (evaluate) {evaluate candidate models};
-        \node [block, left of=evaluate, node distance=3cm] (update) {update     model};
-        \node [decision, below of=evaluate] (decide) {is best candidate     better?};
-        \node [block, below of=decide, node distance=3cm] (test) {test};
-        \node [subroutine, below of=test, node distance=3cm] (sub) {part1\nodepart{two}part2\nodepart{three}part3};
-        % Draw edges
-        \path [line] (init) -- (identify);
-        \path [line] (identify) -- (evaluate);
-        \path [line] (evaluate) -- (decide);
-        \path [line] (decide) -| node [near start] {yes} (update);
-        \path [line] (update) |- (identify);
-        \path [line] (decide) -- node {no}(test);
-        \path [line,dashed] (test) -- (sub);
-        \path [line,dashed] (expert) -- (init);
-        \path [line,dashed] (system) -- (init);
-        \path [line,dashed] (system) |- (evaluate);
-      \end{tikzpicture}
-      \caption{flowchart4}\label{flowchart4}
-    \end{figure}
+  \section{第四题}
+  \subsection{问题描述}
+  对于求$n$ 个实数构成的数组中最小元素的位置问题，写出你设计的具有减治思想算法的伪代码，确定其时间效率，并与该问题的蛮力算法相比较。
+  \subsection{解决方法}
+  \subsubsection{伪代码}
+  如下：
+  \begin{algorithm}
+    \caption{Find\ Min\ Position's algorithm}\label{alg:FindMinPosition}
+  \begin{algorithmic}[1]
+    \Function{FindMinPosition}{$l$, $r$}\Comment{数组中最小元素的位置}
+      \Require 含有$n$个元素的全局数组$A$，搜索起始位置$l$，以及介结束位置$r$  \Comment{初始化$l\gets 0, r \gets n$}
+      \Ensure $A$中最小元素的值$v$及其位置$i$
+      \If{l = r}
+        \State $(v,i) \gets (A_l, l)$
+      \EndIf
+      \State $(v1, i1)\gets $FindMinPosition($l$, $l+(r-l)/2$)
+      \State $(v2, i2)\gets $FindMinPosition($l+(r-l)/2$, $r$)
+      \If{$v1 \le v2$}
+        \State $(v,i) \gets (v1, i1)$
+      \Else
+        \State $(v,i) \gets (v2, i2)$
+      \EndIf
+    \EndFunction
+    \end{algorithmic}
+    \end{algorithm}
+  \subsubsection{分析}
+  由此可以得到时间复杂度的递推公式为：
+  \begin{equation}\label{equ:3_1}
+    T(n)=\left\{
+    \begin{array}{lcl}
+      1                     &      & {n=1}\\
+      {2*[T(\frac{n}{2})+1]}        &      & {n\ge 2}
+  \end{array} \right.
+  \end{equation}
+  将此递推式子改为非递归式子有$T(n)=2n-1$，即时间复杂度为$O(2n-1)$蛮力法通过一次扫描即可得到最小元素位置，时间复杂度为$O(n)$。结果显示效率不及蛮力法，因为此方法增加了比较次数。
+
+  \section{第五题}
+  \subsection{问题描述}
+  请给出约瑟夫斯问题的非递推公式 $J\left(n\right)$，并证明之。其中，$n$ 为最初总人数，$J\left(n\right)$ 为最后幸存者的最初编号。
+  \subsection{解决方法}
+  已知幸存者号码的递推公式：
+  \begin{equation}\label{equ5_1}
+    J(n)=\left\{
+      \begin{array}{lcl}
+        {1}                       &      & {若n=1}\\
+        {J(\frac{n}{2})-1}        &      & {若n=2k}\\
+        {J(\frac{n-1}{2})-1}      &      & {若n=2k+1}
+      \end{array} \right.
+  \end{equation}
+  幸存者号码的非地推公式为：设$n=2^k+b$，$J(n)=2*b+1, \mathrm{s.t.}b\in [0,2^m), (m \geq 0)$
+
+  通过数学归纳法证明：
+  \begin{enumerate}
+    \item $i=1$时，$m=0$，$b=0$，$J(1)=2*b+1$，成立
+    \item $i \ge 1$时，
+    \begin{itemize}
+      \item 当i为偶数时，设$k=\frac{i}{2}$成立，此时$J(k) = 2*b+1$，而$J(i)=J(2k) = 2J(k)-1 = 2(2b+1)-1 = 2(2b) + 1$，即$k = i$时候上式成立。
+      \item 当i为奇数时，设$k=\frac{i-1}{2}$成立，此时$J(k) = 2*b+1$，而$J(i)=J(2k+1) = 2J(k)+1 = 2(2b+1)-1 = 2(2b+1) + 1$，即$k = i$时候上式成立。
+    \end{itemize}
+  \end{enumerate}
+  综上，式子$J(n)=2*b+1, \mathrm{s.t.}b\in [0,2^m), m \geq 0$成立。
 
 \end{document}
