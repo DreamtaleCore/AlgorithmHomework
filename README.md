@@ -1,4 +1,4 @@
-# [Project/Algorithm Name]
+# [Branch and Bound Alogrithm]
 
 | Attribute  |        Value      |
 |:-----------|:------------------|
